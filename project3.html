@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>Login Page</title>
+    <script src="angular.js"></script>  
+    <link rel="stylesheet" href="w3.css">
+</head>
+<body ng-app = "myApp" ng-controller = "loginCtrl" ng-init = "show_change = false;show_fpass = false;showsignup = false;show_loginbtn = true;show_login = false;">
+    <div class = "w3-container" ng-show = "show_loginbtn" style="align-content: center">
+        <h1 style="text-align: center" >Welcome to XYZ Company</h1>
+        <button class="w3-btn w3-green w3-ripple" name="login" ng-click ="show_login = true;show_loginbtn = false" >Click to Login</button>
+    </div>
+    
+    <div class = "w3-container" ng-show = "show_login">
+        <h1 style="text-align: center" >Welcome to XYZ Company</h1>
+        <h2 >Login Page:</h2>
+        <form name = "login_form">
+            <label>Login: </label>
+            <input class="w3-input w3-border" type="text" name="login_txt" ng-model ="login_txt" placeholder="Enter Your Login Details" required> <br>
+            <label>Password: </label>
+            <input class="w3-input w3-border" type="text" ng-show = "login_chk" name="login_pass" ng-model ="login_pass" placeholder="Enter Your Password" required> 
+            <input class="w3-input w3-border" type="password" ng-hide = "login_chk" name="login_pass" ng-model ="login_pass" placeholder="Enter Your Password" required> <br>
+            <input type="checkbox" ng-model = "login_chk"> Wanna see the Password<br><br>
+            <span style="color: red" ng-show = "erre">Your User-Id or Password is incorrect.</span>
+            <button class="w3-btn w3-green w3-ripple" name="login" ng-disabled = "login_form.login_txt.$error.required || login_form.login_pass.$error.required" ng-click ="login('login')" >Login</button>
+            <button class="w3-btn w3-green w3-ripple" name="exit" ng-click ="exit('login')" >Cancel</button> <br><br>
+            <label ng-click = "hlt = true" style="cursor:pointer;size: 10px;color: blue"> Having trouble in Login? </label> <br><br>
+            <span ng-show = "hlt">
+                <button class="w3-btn w3-green w3-ripple" name="fpassd_page" ng-click ="fpass_page()" >Forget Password?</button>
+                <button class="w3-btn w3-green w3-ripple" name="signup_page" ng-click ="signup_page()" >Sign Up</button>
+            </span>    
+        </form>
+    </div>
+
+    <div class = "w3-container" ng-show = "show_fpass">
+        <h1 style="text-align: center" >Welcome to XYZ Company</h1>
+        <h2 >Forget Password:</h2>
+        <form name = "fpass_form">
+            <label>Enter your Login id: </label>
+            <input class="w3-input w3-border" type="text" name="fpass_txt" ng-model ="fpass_txt" placeholder="Enter Your Login Id" required> <br>
+            <label>Your Date of birth:</label>
+            <input class="w3-input w3-border" type="text" name="fpass_dob" ng-model ="fpass_dob" placeholder="Enter Your DOB" required> <br>
+            <button class="w3-btn w3-green w3-ripple" name="login" ng-disabled = "fpass_form.fpass_txt.$error.required || fpass_form.fpass_dob.$error.required" ng-click ="login('fpass')" >Generate Password</button>
+            <button class="w3-btn w3-green w3-ripple" name="exit" ng-click ="exit('fpass')" >Back to Login Page</button> <br><br>    
+            <label>Your Password:</label> 
+            <input class="w3-input w3-border" type="text" ng-model = "fpass_pass" name = 'fpass_pass' placeholder="Password"></input><br>
+        </form>
+    </div>
+
+    <div class = "w3-container" ng-show = "show_signup">
+        <h1 style="text-align: center" >Welcome to XYZ Company</h1>
+        <h2 >Sign Up Page:</h2>
+        <form name = "signup_form">
+            <label>Enter your Login id: </label>
+            <input class="w3-input w3-border" type="text" name="signup_txt" ng-model ="signup_txt" placeholder="Enter Your Login Id" required> <br>
+            <label>Your Date of birth:</label>
+            <input class="w3-input w3-border" type="text" name="signup_dob" ng-model ="signup_dob" placeholder="Enter Your DOB" required> <br>
+            <label >Gender: </label><br><br>
+            <input type="radio" ng-model = "signup_gender" value="Male">Male
+            <input type="radio" ng-model = "signup_gender" value="Female">Female <br><br>
+            <label >Email Id:</label> 
+            <input class="w3-input w3-border" type = "email" ng-model="signup_email" name = "signup_email" placeholder = "Email Id" required></input><br>
+            <label>Password:</label> 
+            <input class="w3-input w3-border" type="text" ng-show = "sign_chk" name="signup_pass" ng-model ="signup_pass" placeholder="Enter Your Password" required> 
+            <input class="w3-input w3-border" type="password" ng-hide = "sign_chk" name="signup_pass" ng-model ="signup_pass" placeholder="Enter Your Password" required> <br>
+            <input type="checkbox" ng-model = "sign_chk"> Wanna see the Password<br><br>
+            <label>Again Password:</label> 
+            <input class="w3-input w3-border" type="password" ng-model = "signup_repass" name = 'signup_repass' placeholder="Repeat Password" required></input><br><br>
+            <button class="w3-btn w3-green w3-ripple" name="login" ng-disabled = "signup_form.signup_txt.$error.required || signup_form.signup_dob.$error.required || signup_form.signup_pass.$error.required || signup_form.signup_email.$error.email || test(signup_pass,signup_repass)" ng-click ="login('signup')" >Save Changes</button>
+            <button class="w3-btn w3-green w3-ripple" name="exit" ng-click ="exit('signup')" >Back to Login Page</button> <br><br>    
+        </form>
+    </div>
+
+    <div class = "w3-container" ng-show = "show_change">
+        <h1 style="text-align: center" >Welcome to XYZ Company</h1>
+        <h2 >Your Details:</h2>
+        <form name = "change_form">
+            <label>Your Login id: </label>
+            <input class="w3-input w3-border" type="text" name="change_txt" ng-disabled = "!change_chk" ng-model ="change_txt"> <br>
+            <label>Your Date of birth:</label>
+            <input class="w3-input w3-border" type="text" name="change_dob" ng-disabled = "!change_chk" ng-model ="change_dob"> <br>
+            <label >Gender: </label>
+            <input class="w3-input w3-border" type="text" name="change_gender" ng-disabled = "!change_chk" ng-model ="change_gender"> <br>
+            <label >Your Email Id:</label> 
+            <input class="w3-input w3-border" type = "email" ng-disabled = "!change_chk" ng-model="change_email" name = "change_email" ><br><br>
+            <span ng-hide = "change_chk"><input type="checkbox" ng-model = "change_chk"> Want to change the details<br><br></span>
+            <span ng-show = "change_chk">
+                <label>Password:</label> 
+                <input class="w3-input w3-border" type="text" ng-show = "change_pass_chk" name="change_pass" ng-model ="change_pass" placeholder="Enter Your Password" required> 
+                <input class="w3-input w3-border" type="password" ng-hide = "change_pass_chk" name="change_pass" ng-model ="change_pass" placeholder="Enter Your Password" required> <br>
+                <input type="checkbox" ng-model = "change_pass_chk"> Wanna see the Password<br><br>
+                <label>Again Password:</label> 
+                <input class="w3-input w3-border" type="password" ng-model = "change_repass" name = 'change_repass' placeholder="Repeat Password" required></input><br><br>
+                <button class="w3-btn w3-green w3-ripple" name="change" ng-disabled = "change_form.change_txt.$error.required || change_form.change_dob.$error.required || change_form.change_pass.$error.required || change_form.change__email.$error.email || test(change_pass,change_repass)" ng-click = "login('change')">Save Changes</button>   
+            </span>
+            <button class="w3-btn w3-green w3-ripple" name="cont" ng-click = "exit('change')">Back to Login Page</button>   
+        </form>
+    </div>
+
+    <script src = "project3.js"></script>
+
+</body>
+</html>
