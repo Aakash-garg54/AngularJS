@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>Employee ID's</title>
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.9/angular.min.js"></script>  
+    <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
+</head>
+<body ng-app = "myApp" ng-controller = "ctrl" ng-init = "showedit = false;shownew = false">
+    <div class="w3-container">
+        <h1 style="text-align: center" >Welcome to XYZ Company</h1>
+
+        <table class="w3-table w3-bordered w3-striped">
+            <tr>
+                <th>Id</th>
+                <th>First Name</th>
+                <th>Last Name</th>
+                <th>Email Id</th>
+                <th>Edit</th>
+            </tr>
+            <tr ng-repeat = "user in users">
+                <td>{{user.id}}</td>
+                <td>{{user.firstname}}</td>
+                <td>{{user.lastname}}</td>
+                <td>{{user.emailid}}</td>
+                <td>
+                    <button class="w3-btn w3-ripple" ng-click = "check(user.id)" ng-disabled = "editbtn">&#9998;Edit</button>
+                </td>
+            </tr>
+        </table>
+        <br>
+        <button class="w3-btn w3-green w3-ripple" ng-click = "check('new')">&#9998; Create New User</button>
+
+        <form name = "myform" ng-show = "showedit || shownew">
+
+            <h2 ng-show = "showedit">Edit User: </h2>
+            <h2 ng-show = "shownew">Create a new User: </h2>
+            <label> Your Id:</label>  
+            <input class="w3-input w3-border" type="text" ng-model = "IDs" ng-disabled = "true" name = "id" placeholder="Your Id" required></input><br>
+            <label> First Name:</label>  
+            <input class="w3-input w3-border" type="text" ng-model = "firstName" ng-disabled = "showedit" name = "firstName" placeholder="First Name" required></input><br>
+            <label >Last Name:</label> 
+            <input class="w3-input w3-border" type="text" ng-model = "lastName" name = "lastName" placeholder="Last Name" required></input><br>
+            <label >Email Id:</label> 
+            <input class="w3-input w3-border" type = "email" ng-model="email" name = "email" placeholder = "Email ID" required></input><br>
+            <label>Password:</label> 
+            <input class="w3-input w3-border" type="password" ng-model = "pass" name = 'pass' placeholder="Password" required></input><br>
+            <label>Again Password:</label> 
+            <input class="w3-input w3-border" type="password" ng-model = "repass" name = 'repass' placeholder="Repeat Password" required></input><br><br>
+            <button class="w3-btn w3-green w3-ripple" ng-show =  "shownew" ng-disabled = "myform.firstName.$error.required || myform.lastName.$error.required || myform.email.$error.email || test()" ng-click = "add()">Add User</button>
+            <button class="w3-btn w3-green w3-ripple" ng-show =  "showedit" ng-disabled = "test()" ng-click = "edit()">Save Changes</button>
+            <button class="w3-btn w3-green w3-ripple" ng-show =  "showedit" ng-click = "remove()">Delete</button>
+        </form>
+
+    </div>    
+    <script src="project1.js"></script>
+</body>
+</html>
